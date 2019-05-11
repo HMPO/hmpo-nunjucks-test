@@ -1,0 +1,26 @@
+{
+  "name": "hmpo-nunjucks-test",
+  "version": "1.0.0",
+  "description": "test nunjucks template generation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UKHomeOffice/passports-nunjucks-test.git"
+  },
+  "author": "HMPO",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UKHomeOffice/passports-nunjucks-test/issues"
+  },
+  "homepage": "https://github.com/UKHomeOffice/passports-nunjucks-test#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "deep-clone-merge": "^1.4.0",
+    "hmpo-components": "^1.11.0",
+    "lodash": "^4.17.11",
+    "nunjucks": "^3.2.0"
+  }
+}
