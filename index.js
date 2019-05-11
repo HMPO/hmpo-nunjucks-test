@@ -63,7 +63,8 @@ const renderer = (views, locales) => {
 
         context = Object.assign({
             translate: (key, translateOptions = {}) => {
-                if  (!locale) return key;
+                if (Array.isArray(key)) key = key[0];
+                if  (!locale) return '[' + key + ']';
                 // check if keys exist in locale en file
                 let translation = _.get(locale, key) || translateOptions.default;
                 if (!translateOptions.optional && !translation && !options.ignore === true && !_.includes(options.ignore, key))

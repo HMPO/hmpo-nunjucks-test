@@ -42,6 +42,13 @@ describe('nunjucks render', () => {
         expect(html).to.equal('<b>string baz</b>');
     });
 
+    it('renders only yhe first key', () => {
+        let $ = render({ string: '<b>string {{translate(["test2", "test1"])}}</b>' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<b>string [test2]</b>');
+    });
+
     it('renders a throws an error if translation not found', () => {
         expect(() => {
             render({ component: 'testComponent', ctx: true });
