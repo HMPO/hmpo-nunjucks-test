@@ -1,0 +1,5 @@
+{% macro testComponent(ctx, params) %}
+    <pre>{{ params | dump }}</pre>
+    <p>{{ ctx("translate")("test2") }}</p>
+    <p>{{ ctx("translate")("test3") }}</p>
+{% endmacro %}
