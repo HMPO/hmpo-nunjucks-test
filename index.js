@@ -5,8 +5,6 @@ const path = require('path');
 const _ = require('lodash');
 const nunjucks = require('nunjucks');
 const cheerio = require('cheerio');
-const globals = require('hmpo-components/lib/globals');
-const filters = require('hmpo-components/lib/filters');
 const deepCloneMerge = require('deep-clone-merge');
 
 const loadHtml = html => {
@@ -37,7 +35,21 @@ const renderer = (views, locales) => {
         trimBlocks: true,
         lstripBlocks: true
     });
+
+    let globals;
+    try {
+        globals = require('hmpo-components/lib/globals');
+    } catch (e) {
+        globals = require('../../lib/globals');
+    }
     globals.addGlobals(nunjucksEnv);
+
+    let filters;
+    try {
+        filters = require('hmpo-components/lib/filters');
+    } catch (e) {
+        filters = require('../../lib/filters');
+    }
     filters.addFilters(nunjucksEnv);
 
     let locale;
