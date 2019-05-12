@@ -28,6 +28,13 @@ describe('nunjucks render', () => {
         expect(html).to.equal('<pre>{&quot;a&quot;:1,&quot;b&quot;:2}</pre><p>[test2]</p><p>[test3]</p>');
     });
 
+    it('renders a component with caller', () => {
+        let $ = render({ component: 'callerComponent', caller: 'caller text' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<pre>caller text</pre>');
+    });
+
     it('renders a template', () => {
         let $ = render('test.html');
         let html = nunjucksTest.cleanHtml($('body'));
@@ -42,7 +49,7 @@ describe('nunjucks render', () => {
         expect(html).to.equal('<b>string baz</b>');
     });
 
-    it('renders only yhe first key', () => {
+    it('renders only the first key', () => {
         let $ = render({ string: '<b>string {{translate(["test2", "test1"])}}</b>' });
         let html = nunjucksTest.cleanHtml($('body'));
 

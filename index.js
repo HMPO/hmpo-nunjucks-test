@@ -81,11 +81,15 @@ const renderer = (views, locales) => {
         else if (options.string) output = nunjucksEnv.renderString(options.string, context);
 
         else if (options.component) {
-            let filename = options.component.replace(/([A-Z])/g, l => '-' + l.toLowerCase()) + '/macro.njk';
-            let args = [];
+            const filename = options.component.replace(/([A-Z])/g, l => '-' + l.toLowerCase()) + '/macro.njk';
+            const importString = `{% from "${filename}" import ${options.component} %}`;
+            const args = [];
             if (options.ctx) args.push('ctx');
             if (options.params) args.push(JSON.stringify(options.params, null, ' '));
-            let string = `{% from "${filename}" import ${options.component} %}{{ ${options.component}(${args.join(',')}) }}`;
+            const macroString = `${options.component}(${args.join(',')})`;
+            const string = options.caller ?
+                `${importString}{% call ${macroString} %}${options.caller}{% endcall %}` :
+                `${importString}{{ ${macroString} }}`;
             output = nunjucksEnv.renderString(string, context);
         }
         
