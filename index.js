@@ -29,27 +29,14 @@ const cleanHtml = $ => {
     return html.trim();
 };
 
-const renderer = (views, locales) => {
+const renderer = (views, locales, globals = require('hmpo-components/lib/globals'), filters = require('hmpo-components/lib/filters')) => {
 
     let nunjucksEnv = nunjucks.configure(views, {
         trimBlocks: true,
         lstripBlocks: true
     });
 
-    let globals;
-    try {
-        globals = require('hmpo-components/lib/globals');
-    } catch (e) {
-        globals = require('../../lib/globals');
-    }
     globals.addGlobals(nunjucksEnv);
-
-    let filters;
-    try {
-        filters = require('hmpo-components/lib/filters');
-    } catch (e) {
-        filters = require('../../lib/filters');
-    }
     filters.addFilters(nunjucksEnv);
 
     let locale;

@@ -18,18 +18,16 @@
   "homepage": "https://github.com/UKHomeOffice/passports-nunjucks-test#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "deep-clone-merge": "^1.4.0",
-    "govuk-frontend": "^2.11.0",
-    "lodash": "^4.17.11",
+    "deep-clone-merge": "^1.5.0",
+    "lodash": "^4.17.15",
     "nunjucks": "^3.2.0"
   },
   "peerDependencies": {
-    "hmpo-components": "*",
-    "govuk-frontend": "*"
+    "hmpo-components": "*"
   },
   "devDependencies": {
-    "hmpo-components": "*",
     "chai": "^4.2.0",
-    "mocha": "^6.1.4"
+    "hmpo-components": "latest",
+    "mocha": "^7.0.1"
   }
 }
