@@ -18,9 +18,9 @@
   "homepage": "https://github.com/UKHomeOffice/passports-nunjucks-test#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "deep-clone-merge": "^1.5.0",
+    "deep-clone-merge": "^1.5.1",
     "lodash": "^4.17.15",
-    "nunjucks": "^3.2.0"
+    "nunjucks": "^3.2.1"
   },
   "peerDependencies": {
     "hmpo-components": "*"
@@ -28,6 +28,6 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "hmpo-components": "latest",
-    "mocha": "^7.0.1"
+    "mocha": "^7.1.1"
   }
 }
