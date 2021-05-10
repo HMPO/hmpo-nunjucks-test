@@ -25,7 +25,7 @@ describe('nunjucks render', () => {
         let $ = render({ component: 'testComponent', params: { a: 1, b: 2 }, ctx: true, ignore: true });
         let html = nunjucksTest.cleanHtml($('body'));
 
-        expect(html).to.equal('<pre>{&quot;a&quot;:1,&quot;b&quot;:2}</pre><p>[test2]</p><p>[test3]</p>');
+        expect(html).to.equal('<pre>{"a":1,"b":2}</pre><p>[test2]</p><p>[test3]</p>');
     });
 
     it('renders a component with caller', () => {
