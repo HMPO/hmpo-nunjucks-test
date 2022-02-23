@@ -29,7 +29,7 @@ const cleanHtml = $ => {
     return html.trim();
 };
 
-const renderer = (views, locales, globals = require('hmpo-components/lib/globals'), filters = require('hmpo-components/lib/filters')) => {
+const renderer = (views, locales, globals = require('hmpo-components/lib/globals'), filters = require('hmpo-components/lib/filters'), realistic) => {
 
     let nunjucksEnv = nunjucks.configure(views, {
         trimBlocks: true,
@@ -50,11 +50,20 @@ const renderer = (views, locales, globals = require('hmpo-components/lib/globals
 
         context = Object.assign({
             translate: (key, translateOptions = {}) => {
+                translateOptions = _.extend({ self: true }, translateOptions);
+                if (realistic) {
+                    if (!locale) return;
+                    const keys = Array.isArray(key) ? key : [ key ];
+                    return _.reduce(keys, (str, k) => {
+                          return str || _.get(locale, k);
+                    }, null) || translateOptions.default || (translateOptions.self && keys[0]);
+                }
+
                 if (Array.isArray(key)) key = key[0];
-                if  (!locale) return '[' + key + ']';
+                if (!locale) return '[' + key + ']';
                 // check if keys exist in locale en file
                 let translation = _.get(locale, key) || translateOptions.default;
-                if (!translateOptions.optional && !translation && !options.ignore === true && !_.includes(options.ignore, key))
+                if (translateOptions.self && !translation && !options.ignore === true && !_.includes(options.ignore, key))
                     throw new Error('Translation not found for ' + key);
                 return options.translate ? String(translation) : '[' + key + ']';
             },

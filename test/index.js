@@ -69,3 +69,71 @@ describe('nunjucks render', () => {
         expect(html).to.equal('<p><b>string baz</b>\n</p>');
     });
 });
+
+describe('nunjucks realsitic render', () => {
+    let render;
+
+    beforeEach(() => {
+        render = nunjucksTest.renderer(
+            [
+                path.resolve(__dirname, 'views')
+            ],
+            [
+                path.resolve(__dirname, 'locale', 'locale1.json'),
+                path.resolve(__dirname, 'locale', 'locale2.json')
+            ],
+            undefined,
+            undefined,
+            true
+        );
+    });
+
+    it('renders a component', () => {
+        let $ = render({ component: 'testComponent', params: { a: 1, b: 2 }, ctx: true });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<pre>{"a":1,"b":2}</pre><p>baz</p><p>test3</p>');
+    });
+
+    it('renders a template', () => {
+        let $ = render('test.html');
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<p>html foo</p>');
+    });
+
+    it('renders a string', () => {
+        let $ = render({ string: '<b>string {{translate("test2")}}</b>' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<b>string baz</b>');
+    });
+
+    it('renders only the first found key', () => {
+        let $ = render({ string: '<b>string {{translate(["test3", "test2", "test1"])}}</b>' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<b>string baz</b>');
+    });
+
+    it('renders default if not found', () => {
+        let $ = render({ string: '<b>string {{translate(["test3"], { default: "a default" })}}</b>' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<b>string a default</b>');
+    });
+
+    it('renders nothing if not found and self is false', () => {
+        let $ = render({ string: '<b>string {{translate(["test3"], { self: false }) or "falsey"}}</b>' });
+        let html = nunjucksTest.cleanHtml($('body'));
+
+        expect(html).to.equal('<b>string falsey</b>');
+    });
+
+    it('formats a string', () => {
+        let $ = render({ string: '<p><b>string {{translate("test2")}}</b></p>', translate: true });
+        let html = nunjucksTest.formatHtml($('body'));
+
+        expect(html).to.equal('<p><b>string baz</b>\n</p>');
+    });
+});
