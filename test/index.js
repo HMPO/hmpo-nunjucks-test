@@ -6,6 +6,56 @@ const expect = chai.expect;
 
 let nunjucksTest = require('../');
 
+describe('nunjucks render loader', () => {
+    let render;
+
+    it('reads locales dictionary files', () => {
+        render = nunjucksTest.renderer(
+            [
+                path.resolve(__dirname, 'views')
+            ],
+            [
+                path.resolve(__dirname, 'locale', 'locale1.json'),
+                path.resolve(__dirname, 'locale', 'locale2.json')
+            ]
+        );
+
+        expect(render.dictionary).to.eql({
+            test1: 'foo',
+            test2: 'baz'
+        });
+    });
+
+    it('reads locales dictionary directory', () => {
+        render = nunjucksTest.renderer(
+            [
+                path.resolve(__dirname, 'views')
+            ],
+            [
+                path.resolve(__dirname, 'locale')
+            ]
+        );
+
+        expect(render.dictionary).to.eql({
+            base: {
+              key: 'value'
+            },
+            locale1: {
+              test1: 'foo',
+              test2: 'bar'
+            },
+            locale2: {
+              test2: 'baz'
+            },
+            obj: {
+              obj2: {
+                name: 'jsonvalue'
+              }
+            }
+        });
+    });
+});
+
 describe('nunjucks render', () => {
     let render;
 

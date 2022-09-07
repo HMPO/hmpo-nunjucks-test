@@ -2,10 +2,12 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const _ = require('lodash');
 const nunjucks = require('nunjucks');
 const cheerio = require('cheerio');
 const deepCloneMerge = require('deep-clone-merge');
+const yaml = require('js-yaml');
 
 const loadHtml = html => {
     return cheerio.load(html, { normalizeWhitespace: true });
@@ -39,9 +41,41 @@ const renderer = (views, locales, globals = require('hmpo-components/lib/globals
     globals.addGlobals(nunjucksEnv);
     filters.addFilters(nunjucksEnv);
 
+    const loadLocale = (p, stack) => {
+        const stat = fs.statSync(p);
+
+        if (stat.isDirectory()) {
+            const files = fs.readdirSync(p);
+            let data = {};
+            files.forEach(file => {
+                if (file.match(/\.(jso?n|ya?ml)$/)) data = loadLocale(path.resolve(p, file), data);
+            });
+            return data;
+        }
+
+        let data;
+        try {
+            const text = fs.readFileSync(p).toString();
+            if (p.match(/\.jso?n$/)) data = JSON.parse(text);
+            else if (p.match(/\.ya?ml$/)) data = yaml.load(text);
+            else throw new Error('Unknown file type');
+        } catch(e) {
+            throw new Error('Error loading localisation file ' + p + ': ' + e.message);
+        }
+
+        if (!stack) return data;
+
+        // mount this file in the correct place in the stack based on filename
+        const parts = path.basename(p).split('.');
+        parts.pop();
+        if (parts[0] === 'default') parts.shift();
+        while(parts.length) data = { [parts.pop()]: data };
+        return deepCloneMerge(stack, data);
+    };
+
     let locale;
     if (locales) {
-        locales = locales.map(locale => require(locale));
+        locales = locales.map(locale => loadLocale(locale));
         locale = deepCloneMerge(...locales);
     }
 
@@ -93,6 +127,8 @@ const renderer = (views, locales, globals = require('hmpo-components/lib/globals
 
         return loadHtml(output);
     };
+
+    render.dictionary = locale;
 
     return render;
 };
