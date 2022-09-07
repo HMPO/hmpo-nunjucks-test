@@ -19,6 +19,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.11",
     "deep-clone-merge": "^1.5.4",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "nunjucks": "^3.2.3"
   },
