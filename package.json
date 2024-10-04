@@ -4,7 +4,8 @@
   "description": "test nunjucks template generation",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test && npm audit"
+    "test": "mocha test && npm audit",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,12 @@
   },
   "homepage": "https://github.com/HMPO/hmpo-nunjucks-test#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "deep-clone-merge": "^1.5.4",
+    "cheerio": "^1.0.0",
+    "deep-clone-merge": "^1.5.5",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "husky": "^9.1.6"
   },
   "peerDependencies": {
     "hmpo-components": "*"
@@ -29,6 +31,6 @@
   "devDependencies": {
     "chai": "^4.5.0",
     "hmpo-components": "latest",
-    "mocha": "^10.7.0"
+    "mocha": "^10.7.3"
   }
 }
