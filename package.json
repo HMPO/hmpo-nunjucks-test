@@ -1,6 +1,6 @@
 {
   "name": "hmpo-nunjucks-test",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "test nunjucks template generation",
   "main": "index.js",
   "scripts": {
