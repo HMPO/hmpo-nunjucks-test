@@ -1,6 +1,6 @@
 # hmpo-nunjucks-test
 
-```
+```javascript
 const nunjucksTest = require('hmpo-nunjucks-test');
 
 const views = [
