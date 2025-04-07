@@ -1,5 +1,14 @@
 # hmpo-nunjucks-test
 
+## Usage
+
+* How to use the renderer() method
+  * What are each of the params?
+  * What file extensions are allowed for the views?
+  * What file extensions are allowed for the locales?
+* How to use the returned render() method
+* How to use the cleanHtml() and formatHtml() methods
+
 ```javascript
 const nunjucksTest = require('hmpo-nunjucks-test');
 
