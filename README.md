@@ -154,6 +154,8 @@ This function processes the HTML content by:
 * Removing multiple consecutive newlines and spaces, ensuring a single newline between elements.
 * Trimming any leading or trailing whitespace.
 
+Uses `Cheerio JS`. See their [docs](https://cheerio.js.org/docs/intro) for more info.
+
 #### Parameters
 
 * `$` (`Cheerio Object`) - A Cheerio object containing the HTML content to clean.
