@@ -193,6 +193,54 @@ const renderer = (views, locales, globals = require('hmpo-components/lib/globals
         locale = deepCloneMerge(...locales);
     }
 
+    /**
+     * Renders a template, string, or component using the Nunjucks templating engine.
+     * 
+     * This function can handle rendering based on different options:
+     * - **template**: Render a template file using Nunjucks.
+     * - **string**: Render a string that contains Nunjucks syntax.
+     * - **component**: Render a component (macro) using Nunjucks, optionally passing parameters and context.
+     * 
+     * It also supports translations via the `translate` function and context resolution.
+     * 
+     * @param {Object|string} options - Options to control the rendering process. This can be:
+     *   - A string, which is treated as the template to render.
+     *   - An object containing one of the following properties:
+     *     - `template` {string}: The path to the template to render.
+     *     - `string` {string}: A raw string containing Nunjucks template code.
+     *     - `component` {string}: The name of a component (macro) to render.
+     *     - `caller` {string}: The caller's content to pass to the component (if using `component`).
+     *     - `params` {Object}: Parameters to pass to the component (if using `component`).
+     *     - `ctx` {boolean}: Whether to include the context (`true` includes context).
+     *     - `ignore` {Array|string}: Keys to ignore during translation.
+     *     - `translate` {boolean}: Whether to perform translation (defaults to `true`).
+     * @param {Object} [context={}] - The context to pass to the Nunjucks template rendering. 
+     *   It can contain variables, helper functions, or translation options.
+     *   - `translate`: A function that provides translations for keys.
+     *   - `ctx`: A function to access the context.
+     * @returns {string} The rendered HTML output as a string.
+     * @throws {Error} If an error occurs during rendering or if a translation is not found.
+     * 
+     * @example
+     * // Rendering a template
+     * const output = render({
+     *   template: 'exampleTemplate.html',
+     *   translate: true
+     * });
+     * 
+     * // Rendering a component
+     * const output = render({
+     *   component: 'myComponent',
+     *   params: { a: 1, b: 2 },
+     *   ctx: true
+     * });
+     * 
+     * // Rendering a string with translation
+     * const output = render({
+     *   string: '<b>{{ translate("key1") }}</b>',
+     *   translate: true
+     * });
+     */
     const render = (options, context = {}) => {
         if (typeof options === 'string') options = { template: options };
 
