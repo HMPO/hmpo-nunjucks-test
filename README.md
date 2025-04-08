@@ -32,7 +32,7 @@ The function also includes error handling for missing translations and the abili
 
 ```javascript
 const path = require('path');
-let nunjucksTest = require('/index.js');
+let nunjucksTest = require('hmpo-nunjucks-test');
 
 let myRenderFunc = nunjucksTest.renderer(
     [
@@ -76,6 +76,8 @@ This is the function returned by the previously mentioned `renderer` function.
 * `string` - The rendered HTML output as a string.
 
 #### Example Usage
+
+Assuming you have already imported and set up `hmpo-nunjucks-test` as seen in `renderer` example usage.
 
 Rendering a template:
 
@@ -129,6 +131,8 @@ Uses `Cheerio JS`. See their [docs](https://cheerio.js.org/docs/intro) for more 
 
 #### Example Usage
 
+Assuming you have already imported and set up `hmpo-nunjucks-test` as seen in `renderer` example usage.
+
 ```javascript
 const cheerio = require('cheerio');
 const htmlContent = cheerio.load('<div><p>  This is a test &#x2019; string  </p>  <p>Another test.</p></div>');
@@ -159,6 +163,8 @@ This function processes the HTML content by:
 * `string` - The cleaned HTML as a string, with unnecessary whitespace removed.
 
 #### Example Usage
+
+Assuming you have already imported and set up `hmpo-nunjucks-test` as seen in `renderer` example usage.
 
 ```javascript
 const cheerio = require('cheerio');
