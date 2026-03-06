@@ -13,6 +13,9 @@
   },
   "author": "HMPO",
   "license": "MIT",
+  "engines": {
+    "node": "24.x"
+  },
   "bugs": {
     "url": "https://github.com/HMPO/hmpo-nunjucks-test/issues"
   },
@@ -31,6 +34,12 @@
   "devDependencies": {
     "chai": "^4.5.0",
     "hmpo-components": "latest",
-    "mocha": "^10.7.3"
+    "mocha": "^11.3.0"
+  },
+  "overrides": {
+    "mocha": {
+      "diff": "^8.0.3",
+      "serialize-javascript": "^7.0.4"
+    }
   }
 }
